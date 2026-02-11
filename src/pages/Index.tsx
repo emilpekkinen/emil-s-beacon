@@ -24,7 +24,7 @@ const Index = () => {
             Emil Pekkinen
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base max-w-lg">
-            Economics × Data Science × ML — building the world's largest hackathon community.
+            Leading the global hackathon revolution.
           </p>
         </div>
 
