@@ -6,11 +6,19 @@ const AsciiFlame = () => {
   const canvasRef = useRef<HTMLPreElement>(null);
   const bufferRef = useRef<number[]>([]);
   const animRef = useRef<number>(0);
+  const lastTimeRef = useRef<number>(0);
 
-  const COLS = 60;
-  const ROWS = 30;
+  const COLS = 100;
+  const ROWS = 50;
+  const FRAME_INTERVAL = 80; // ms between frames (slower)
 
-  const step = useCallback(() => {
+  const step = useCallback((time: number) => {
+    if (time - lastTimeRef.current < FRAME_INTERVAL) {
+      animRef.current = requestAnimationFrame(step);
+      return;
+    }
+    lastTimeRef.current = time;
+
     const buf = bufferRef.current;
     const size = COLS * ROWS;
 
@@ -56,7 +64,7 @@ const AsciiFlame = () => {
   return (
     <pre
       ref={canvasRef}
-      className="fixed inset-0 flex items-end justify-center overflow-hidden pointer-events-none select-none text-foreground leading-none text-[10px] sm:text-xs opacity-20 z-0"
+      className="fixed inset-0 flex items-end justify-center overflow-hidden pointer-events-none select-none text-foreground leading-none text-[8px] sm:text-[10px] md:text-xs opacity-20 z-0"
       aria-hidden="true"
       style={{ fontFamily: '"JetBrains Mono", monospace' }}
     />
