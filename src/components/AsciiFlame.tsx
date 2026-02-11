@@ -56,7 +56,7 @@ const AsciiFlame = () => {
   return (
     <pre
       ref={canvasRef}
-      className="fixed inset-0 flex items-end justify-center overflow-hidden pointer-events-none select-none text-ascii leading-none text-[10px] sm:text-xs opacity-30 z-0"
+      className="fixed inset-0 flex items-end justify-center overflow-hidden pointer-events-none select-none text-foreground leading-none text-[10px] sm:text-xs opacity-20 z-0"
       aria-hidden="true"
       style={{ fontFamily: '"JetBrains Mono", monospace' }}
     />
