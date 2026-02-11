@@ -23,8 +23,8 @@ const Index = () => {
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
             Emil Pekkinen
           </h1>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-md">
-            Developer & builder of things.
+          <p className="text-muted-foreground text-sm sm:text-base max-w-lg">
+            Economics × Data Science × ML — building the world's largest hackathon community.
           </p>
         </div>
 
