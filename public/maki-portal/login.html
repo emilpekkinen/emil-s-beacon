@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maki.vc | Investment Analysis Portal</title>
+  <link rel="icon" type="image/png" href="assets/Logos/maki_logomark_dark.png" />
+  <meta name="description" content="Sign in to the Maki.vc ML Investment Predictor Portal. Access your investment analysis dashboard." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;1,300;1,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --maki-red: #E8533A;
+      --maki-red-dark: #D4442C;
+      --maki-red-light: #F0705A;
+      --text-dark: #1a1a1a;
+      --text-mid: #444;
+      --text-light: #888;
+      --border: #d8d8d8;
+      --bg-white: #ffffff;
+      --input-bg: #fafafa;
+      --font-heading: 'Merriweather', Georgia, serif;
+      --font-body: 'Source Sans 3', 'Source Sans Pro', -apple-system, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font-body);
+      background: var(--bg-white);
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── LEFT PANEL ── */
+    .panel-left {
+      flex: 0 0 48%;
+      background: var(--maki-red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Geometric triangle pattern overlay */
+    .panel-left::before,
+    .panel-left::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .geo-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .geo-canvas svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── RIGHT PANEL ── */
+    .panel-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 80px;
+      background: var(--bg-white);
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    /* Logo */
+    .logo-wrap {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .logo-wrap img {
+      height: 64px;
+      width: auto;
+    }
+
+    /* Form heading */
+    .form-heading {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.7rem;
+      color: var(--text-dark);
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+
+    /* Form fields */
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      margin-bottom: 6px;
+    }
+
+    .field label .required {
+      color: var(--maki-red);
+      margin-left: 2px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .field input {
+      width: 100%;
+      height: 46px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      background: var(--input-bg);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      padding: 0 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .field input:focus {
+      border-color: var(--maki-red);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(232, 83, 58, 0.12);
+    }
+
+    /* Password toggle */
+    .toggle-pw {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .toggle-pw:hover { color: var(--text-dark); }
+
+    /* Form actions row */
+    .form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 28px;
+    }
+
+    .forgot-link {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .forgot-link:hover { color: var(--maki-red); }
+
+    .btn-signin {
+      background: transparent;
+      border: 1.5px solid var(--maki-red);
+      color: var(--maki-red);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 10px 28px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.22s, color 0.22s, transform 0.15s, box-shadow 0.22s;
+    }
+
+    .btn-signin:hover {
+      background: var(--maki-red);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(232, 83, 58, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-signin:active {
+      transform: translateY(0);
+    }
+
+    /* Error message */
+    .error-msg {
+      display: none;
+      background: #fff2f0;
+      border: 1px solid #ffccc7;
+      border-radius: 3px;
+      color: #cf1322;
+      font-size: 0.84rem;
+      padding: 10px 14px;
+      margin-top: 20px;
+    }
+
+    .error-msg.visible { display: block; }
+
+    /* Notice bar */
+    .notice-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f5f5f5;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin-top: 36px;
+      font-size: 0.8rem;
+      color: var(--text-mid);
+    }
+
+    .notice-bar svg {
+      flex-shrink: 0;
+      color: #666;
+    }
+
+    .notice-bar .close-notice {
+      margin-left: auto;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      padding: 2px;
+      line-height: 1;
+    }
+
+    /* Footer note */
+    .recaptcha-note {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 28px;
+      line-height: 1.6;
+    }
+
+    .recaptcha-note a {
+      color: #1890ff;
+      text-decoration: none;
+    }
+
+    .recaptcha-note a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .panel-left { display: none; }
+      .panel-right { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- LEFT: geometric art panel -->
+    <div class="panel-left">
+      <div class="geo-canvas">
+        <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <style>
+              .tri { fill-opacity: 0.12; }
+              .tri-light { fill: #fff; }
+              .tri-dark { fill: #000; }
+            </style>
+          </defs>
+
+          <!-- Top-left quadrant -->
+          <polygon class="tri tri-light" points="0,0 300,0 0,400"/>
+          <polygon class="tri tri-dark" points="0,0 300,0 300,400"/>
+          <!-- inner triangles top-left -->
+          <polygon class="tri tri-light" points="0,0 150,0 0,200"/>
+          <polygon class="tri tri-dark" points="150,0 300,0 150,200"/>
+
+          <!-- Top-right quadrant -->
+          <polygon class="tri tri-dark" points="300,0 600,0 300,400"/>
+          <polygon class="tri tri-light" points="600,0 600,400 300,400"/>
+          <!-- inner -->
+          <polygon class="tri tri-light" points="300,0 450,0 300,200"/>
+          <polygon class="tri tri-dark" points="450,0 600,0 600,200"/>
+
+          <!-- Bottom-left quadrant -->
+          <polygon class="tri tri-dark" points="0,400 300,400 0,800"/>
+          <polygon class="tri tri-light" points="300,400 0,800 300,800"/>
+          <!-- inner -->
+          <polygon class="tri tri-light" points="0,400 150,400 0,600"/>
+          <polygon class="tri tri-dark" points="150,400 300,400 150,600"/>
+
+          <!-- Bottom-right quadrant -->
+          <polygon class="tri tri-light" points="300,400 600,400 300,800"/>
+          <polygon class="tri tri-dark" points="600,400 600,800 300,800"/>
+          <!-- inner -->
+          <polygon class="tri tri-dark" points="300,400 450,400 300,600"/>
+          <polygon class="tri tri-light" points="450,400 600,400 600,600"/>
+
+          <!-- Subtle center cross-lines -->
+          <line x1="0" y1="0" x2="600" y2="800" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+          <line x1="600" y1="0" x2="0" y2="800" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+          <line x1="300" y1="0" x2="300" y2="800" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="0" y1="400" x2="600" y2="400" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- RIGHT: login form -->
+    <div class="panel-right">
+      <div class="login-box">
+
+        <!-- Logo -->
+        <div class="logo-wrap">
+          <img src="assets/Logos/logo_black.png" alt="Maki.vc" />
+        </div>
+
+        <h1 class="form-heading">Sign in</h1>
+
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="username">Username <span class="required">*</span></label>
+            <div class="input-wrap">
+              <input
+                type="text"
+                id="username"
+                name="username"
+                autocomplete="username"
+                placeholder=""
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="password">Password <span class="required">*</span></label>
+            <div class="input-wrap">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="current-password"
+                required
+              />
+              <button type="button" class="toggle-pw" id="togglePw" aria-label="Toggle password visibility">
+                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="errorMsg" class="error-msg" role="alert">
+            Invalid username or password. Please try again.
+          </div>
+
+          <div class="form-actions">
+            <a href="#" class="forgot-link">Forgot password?</a>
+            <button type="submit" class="btn-signin" id="signinBtn">Sign in</button>
+          </div>
+        </form>
+
+        <p class="recaptcha-note">
+          This portal is protected. Only authorized users may access investment analysis data.
+        </p>
+
+        <div class="notice-bar" id="noticeBar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>Always be cautious of potential phishing attempts.</span>
+          <button class="close-notice" id="closeNotice" aria-label="Dismiss">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Test credentials
+    const VALID_USER = 'admin';
+    const VALID_PASS = 'admin';
+
+    const form = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const togglePw = document.getElementById('togglePw');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const closeNotice = document.getElementById('closeNotice');
+    const noticeBar = document.getElementById('noticeBar');
+    const signinBtn = document.getElementById('signinBtn');
+
+    // Password visibility toggle
+    togglePw.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+      eyeIcon.innerHTML = isPassword
+        ? `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>`
+        : `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>`;
+    });
+
+    // Dismiss notice
+    closeNotice.addEventListener('click', () => {
+      noticeBar.style.display = 'none';
+    });
+
+    // Form submit
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = usernameInput.value.trim();
+      const pass = passwordInput.value;
+
+      signinBtn.textContent = 'Signing in…';
+      signinBtn.disabled = true;
+
+      // Simulate brief network delay
+      setTimeout(() => {
+        if (user === VALID_USER && pass === VALID_PASS) {
+          errorMsg.classList.remove('visible');
+          // Redirect to portal
+          window.location.href = 'portal.html';
+        } else {
+          errorMsg.classList.add('visible');
+          usernameInput.style.borderColor = '#ff4d4f';
+          passwordInput.style.borderColor = '#ff4d4f';
+          signinBtn.textContent = 'Sign in';
+          signinBtn.disabled = false;
+        }
+      }, 600);
+
+      // Reset border on next input
+      [usernameInput, passwordInput].forEach(inp => {
+        inp.addEventListener('input', () => {
+          inp.style.borderColor = '';
+          errorMsg.classList.remove('visible');
+        }, { once: true });
+      });
+    });
+  </script>
+</body>
+</html>
