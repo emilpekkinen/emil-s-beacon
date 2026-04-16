@@ -11,13 +11,13 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "ESP32 Sensor Node",
-    tag: "Embedded / IoT",
+    title: "ESP32 Game Console",
+    tag: "Embedded / Hardware",
     description:
-      "A lightweight wireless sensor node built on the ESP32 microcontroller. Reads environmental data over I²C, publishes readings via MQTT over Wi-Fi, and enters deep sleep between cycles to maximise battery life. Designed for easy deployment in remote or low-power environments.",
-    tech: ["C / Arduino", "ESP32", "MQTT", "I²C", "Deep Sleep"],
+      "A handheld game console built from scratch on the ESP32 microcontroller. Features a custom PCB, TFT display, and physical button inputs — all programmed bare-metal in C. A full hardware-software project from schematic to playable device.",
+    tech: ["C", "ESP32", "TFT Display", "Custom PCB", "Arduino"],
     links: [
-      { label: "GitHub", href: "https://github.com/emilpekkinen", icon: "github" },
+      { label: "GitHub", href: "https://github.com/emilpekkinen/ESP32_game_console", icon: "github" },
     ],
   },
   {
