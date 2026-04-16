@@ -1,4 +1,4 @@
-import { Github, Linkedin, Calendar } from "lucide-react";
+import { Github, Linkedin, Calendar, Sword } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import profileImage from "@/assets/emil-profile.jpeg";
 import AsciiFlame from "@/components/AsciiFlame";
@@ -59,6 +59,13 @@ const Index = () => {
             >
               <Calendar className="mr-2 h-4 w-4" />
               Book a call
+            </a>
+          </Button>
+
+          <Button variant="outline" size="lg" asChild>
+            <a href="/whispering-vale/">
+              <Sword className="mr-2 h-4 w-4" />
+              Whispering Vale
             </a>
           </Button>
         </div>
