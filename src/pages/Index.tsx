@@ -82,7 +82,7 @@ const Index = () => {
             aria-label="Scroll to portfolio"
           >
             <span>Portfolio</span>
-            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" className="animate-bounce">
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
               <path d="M1 1l7 7 7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
