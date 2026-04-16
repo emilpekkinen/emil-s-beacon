@@ -12,7 +12,7 @@ interface Project {
 const projects: Project[] = [
   {
     title: "ESP32 Game Console",
-    tag: "Embedded / Hardware",
+    tag: "Embedded / Hardware / Gaming",
     description:
       "A handheld game console built from scratch on the ESP32 microcontroller. Features a custom PCB, TFT display, and physical button inputs — all programmed bare-metal in C. A full hardware-software project from schematic to playable device.",
     tech: ["C", "ESP32", "TFT Display", "Custom PCB", "Arduino"],
@@ -22,7 +22,7 @@ const projects: Project[] = [
   },
   {
     title: "Whispering Vale",
-    tag: "Game / AI",
+    tag: "Gaming / AI/ML",
     description:
       "A 3D browser RPG where every NPC is powered by a large language model. Characters hold persistent memories, form opinions, hand out quests, and reward players on completion. New areas of the world are procedurally generated mid-game whenever an NPC mentions an unexplored location.",
     tech: ["React", "Three.js", "Express", "Claude AI", "SQLite"],
